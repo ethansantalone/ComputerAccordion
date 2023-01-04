@@ -1,0 +1,112 @@
+.Accordion {
+    min-height: 100vh;
+    /* min-height: 110vh; */
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(20px + 2vmin);
+    background-color: rgb(23, 21, 21);
+    color: white;
+    padding-top: 80px;
+  
+    /* background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%,rgb(23, 21, 21) 100%); */
+  }
+
+  .Accordion-keyboard-rows {
+    display: flex;
+    flex-direction: rown;
+    align-items: center;
+    justify-content: center;
+    color: white;
+  }
+
+
+  .Accordion-keyboard-keys {
+    width: 60px;
+    height: 60px;
+    margin: 4px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    color: black;
+    border-radius: 3px;
+  }
+  .Accordion-keyboard-keys-pressed {
+    width: 60px;
+    height: 60px;
+    margin: 4px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: lightblue;
+    color: black;
+    border-radius: 3px;
+  }
+  .Accordion-keyboard-keys-dark {
+    width: 60px;
+    height: 60px;
+    margin: 4px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: black;
+    color: white;
+    border-radius: 3px;
+  }
+  .Accordion-keyboard-keys-pressed-dark {
+    width: 60px;
+    height: 60px;
+    margin: 4px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: darkblue;
+    color: white;
+    border-radius: 3px;
+  }
+
+
+  .Accordion-return {
+    display: flex;
+    margin: 40px;
+    margin-bottom: 80px;
+    width: 170px;
+    height: 50px;
+    background-color: rgb(219, 147, 64);
+    font-size: 12pt;
+    font-weight: 600;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s ease-in-out;
+  }
+  
+  .Accordion-return:hover {
+    background-color: rgb(182, 121, 52);
+    cursor: pointer;
+  }
+
+  .note {
+    font-size: 21pt;
+    font-weight: 500;
+  }
+  .key {
+    font-size: 12pt;
+    font-weight: 500;
+  }
+
+  .bottom {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    width: 100px;
+    height: 100px;
+    background-color: white;
+  }
