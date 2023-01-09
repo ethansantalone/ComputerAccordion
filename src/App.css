@@ -14,7 +14,7 @@
 }
 
 .App-header {
-  background-color: grey;
+  background-color: rgb(35, 34, 31);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -35,4 +35,11 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.Magnify {
+  transform: scale(1.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
