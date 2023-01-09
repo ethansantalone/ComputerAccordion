@@ -137,8 +137,6 @@ class App extends React.Component {
 
   midiOnMIDImessage(event) {
     var data = event.data;
-    var cmd = data[0] >> 4;
-    var channel = data[0] & 0xf;
     var type = data[0] & 0xf0;
     var pitch = data[1];
     var velocity = data[2];
@@ -148,6 +146,8 @@ class App extends React.Component {
         break;
       case 128:
         this.keyUp(pitch);
+        break;
+      default:
         break;
     }
   }
