@@ -358,8 +358,13 @@ class App extends React.Component {
             <div>
               <select id="brow" value={this.state.selectedInstrument} onChange={this.onSelectInstrument.bind(this)}>{this.createSelectItems()}</select>
               <br />
-              Use Left and Right Arrow Keys to change octave number: {this.state.octave}
+              <br />
+              Left Arrow Key: Decrement Octave | Up Arrow Key: 6nd Octave
+              <br />
+              Right Arrow Key: Increment Octave | Down Arrow Key: 2nd Octave
+              <br />
             </div>
+            <br />
             {
               renderedKeyMappings.map((value, index) => {
 
