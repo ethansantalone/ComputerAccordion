@@ -325,7 +325,7 @@ class App extends React.Component {
             <div>
               <select id="brow" value={this.state.selectedInstrument} onChange={this.onSelectInstrument.bind(this)}>{this.createSelectItems()}</select>
               <br />
-              Octave number: {this.state.octave}
+              Use Left and Right Arrow Keys to change octave number: {this.state.octave}
             </div>
             {
               accordion_buttons.map((value, index) => {
