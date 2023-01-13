@@ -223,9 +223,7 @@ class App extends React.Component {
 
       const upperCaseKey = key.toUpperCase()
       if (initialPitchMapping.hasOwnProperty(upperCaseKey)) {
-
         let pitch
-
         pitchMappings.forEach((noteRowArrays) => {
           noteRowArrays.forEach((noteArrays) => {
             if (noteArrays[0] === upperCaseKey) {
@@ -233,10 +231,10 @@ class App extends React.Component {
             }
           })
         })
-
         this.keyDown(pitch)
       }
       this.setState({ keysPressed: new Set(this.state.keysPressed.add(key.toUpperCase())) })
+
 
       if (key === "ArrowLeft") {
         if (this.state.octave === 0) {
@@ -253,6 +251,17 @@ class App extends React.Component {
         this.setState((prevState, props) => {
           return { octave: prevState.octave + 1 }
         }, this.setState({ pitchMappingVar: this.createKeyboardVariable(this.state.octave + 1) }))
+      }
+      else if (key === "ArrowUp") {
+        if (this.state.octave === 6) {
+          return
+        }
+        this.setState({ octave: 6 }, this.setState({ pitchMappingVar: this.createKeyboardVariable(6) }))
+      }else if (key === "ArrowDown") {
+        if (this.state.octave === 2) {
+          return
+        }
+        this.setState({ octave: 2 }, this.setState({ pitchMappingVar: this.createKeyboardVariable(2) }))
       }
 
     }
@@ -341,14 +350,6 @@ class App extends React.Component {
   render() {
 
     const renderedKeyMappings = this.state.pitchMappingVar;
-
-    const accordion_buttons = [
-      [['g0', 'F2'], ['a#0', 'F3'], ['c#1', 'F4'], ['e1', 'F5'], ['g1', 'F6'], ['a#1', 'F7'], ['c#2', 'F8'], ['e2', 'F9'], ['g2', 'F10'], ['a#2', 'F11'], ['c#3', 'F12']],
-      [['a0', '3'], ['c1', '4'], ['d#1', '5'], ['f#1', '6'], ['a1', '7'], ['c2', '8'], ['d#2', '9'], ['f#2', '0'], ['a2', '-'], ['c3', '=']],
-      [['g#0', 'W'], ['b0', 'E'], ['d1', 'R'], ['f1', 'T'], ['g#1', 'Y'], ['b1', 'U'], ['d2', 'I'], ['f2', 'O'], ['g#2', 'P'], ['b2', '['], ['d3', ']']],
-      [['g0', 'A'], ['a#0', 'S'], ['c#1', 'D'], ['e1', 'F'], ['g1', 'G'], ['a#1', 'H'], ['c#2', 'J'], ['e2', 'K'], ['g2', 'L'], ['a#2', ';'], ['c#3', '\''], ['e3', 'ENTER']],
-      [['a0', 'Z'], ['c1', 'X'], ['d#1', 'C'], ['f#1', 'V'], ['a1', 'B'], ['c2', 'N'], ['d#2', 'M'], ['f#2', ','], ['a2', '.'], ['c3', '/'], ['d#3', 'SHIFT']]
-    ]
 
     return (
       <div className="App">
