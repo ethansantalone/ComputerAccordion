@@ -3,65 +3,65 @@ import './Accordion.css';
 import './App.css';
 import MIDISounds from 'midi-sounds-react';
 
-const pitchMappings = {
-  'F2': 7 + 12 * 2,
-  'F3': 10 + 12 * 2,
-  'F4': 1 + 12 * 3,
-  'F5': 4 + 12 * 3,
-  'F6': 7 + 12 * 3,
-  'F7': 10 + 12 * 3,
-  'F8': 1 + 12 * 4,
-  'F9': 4 + 12 * 4,
-  'F10': 7 + 12 * 4,
-  'F11': 10 + 12 * 4,
-  'F12': 1 + 12 * 5,
+let octave = 2;
+const initialPitchMapping = {
+  'F2': 7 + 12 * octave,
+  'F3': 10 + 12 * octave,
+  'F4': 1 + 12 * (octave + 1),
+  'F5': 4 + 12 * (octave + 1),
+  'F6': 7 + 12 * (octave + 1),
+  'F7': 10 + 12 * (octave + 1),
+  'F8': 1 + 12 * (octave + 2),
+  'F9': 4 + 12 * (octave + 2),
+  'F10': 7 + 12 * (octave + 2),
+  'F11': 10 + 12 * (octave + 2),
+  'F12': 1 + 12 * (octave + 3),
 
-  '3': 9 + 12 * 2,
-  '4': 0 + 12 * 3,
-  '5': 3 + 12 * 3,
-  '6': 6 + 12 * 3,
-  '7': 9 + 12 * 3,
-  '8': 0 + 12 * 4,
-  '9': 3 + 12 * 4,
-  '0': 6 + 12 * 4,
-  '-': 9 + 12 * 4,
-  '=': 0 + 12 * 5,
+  '3': 9 + 12 * octave,
+  '4': 0 + 12 * (octave + 1),
+  '5': 3 + 12 * (octave + 1),
+  '6': 6 + 12 * (octave + 1),
+  '7': 9 + 12 * (octave + 1),
+  '8': 0 + 12 * (octave + 2),
+  '9': 3 + 12 * (octave + 2),
+  '0': 6 + 12 * (octave + 2),
+  '-': 9 + 12 * (octave + 2),
+  '=': 0 + 12 * (octave + 3),
 
-  'A': 7 + 12 * 2,
-  'W': 8 + 12 * 2,
-  'Z': 9 + 12 * 2,
-  'S': 10 + 12 * 2,
-  'E': 11 + 12 * 2,
-  'X': 0 + 12 * 3,
-  'D': 1 + 12 * 3,
-  'R': 2 + 12 * 3,
-  'C': 3 + 12 * 3,
-  'F': 4 + 12 * 3,
-  'T': 5 + 12 * 3,
-  'V': 6 + 12 * 3,
-  'G': 7 + 12 * 3,
-  'Y': 8 + 12 * 3,
-  'B': 9 + 12 * 3,
-  'H': 10 + 12 * 3,
-  'U': 11 + 12 * 3,
-  'N': 0 + 12 * 4,
-  'J': 1 + 12 * 4,
-  'I': 2 + 12 * 4,
-  'M': 3 + 12 * 4,
-  'K': 4 + 12 * 4,
-  'O': 5 + 12 * 4,
-  ',': 6 + 12 * 4,
-  'L': 7 + 12 * 4,
-  'P': 8 + 12 * 4,
-  '.': 9 + 12 * 4,
-  ';': 10 + 12 * 4,
-  '[': 11 + 12 * 4,
-  '/': 0 + 12 * 5,
-  '\'': 1 + 12 * 5,
-  ']': 2 + 12 * 5,
-  'SHIFT': 3 + 12 * 5,
-  'ENTER': 4 + 12 * 5,
-
+  'A': 7 + 12 * octave,
+  'W': 8 + 12 * octave,
+  'Z': 9 + 12 * octave,
+  'S': 10 + 12 * octave,
+  'E': 11 + 12 * octave,
+  'X': 0 + 12 * (octave + 1),
+  'D': 1 + 12 * (octave + 1),
+  'R': 2 + 12 * (octave + 1),
+  'C': 3 + 12 * (octave + 1),
+  'F': 4 + 12 * (octave + 1),
+  'T': 5 + 12 * (octave + 1),
+  'V': 6 + 12 * (octave + 1),
+  'G': 7 + 12 * (octave + 1),
+  'Y': 8 + 12 * (octave + 1),
+  'B': 9 + 12 * (octave + 1),
+  'H': 10 + 12 * (octave + 1),
+  'U': 11 + 12 * (octave + 1),
+  'N': 0 + 12 * (octave + 2),
+  'J': 1 + 12 * (octave + 2),
+  'I': 2 + 12 * (octave + 2),
+  'M': 3 + 12 * (octave + 2),
+  'K': 4 + 12 * (octave + 2),
+  'O': 5 + 12 * (octave + 2),
+  ',': 6 + 12 * (octave + 2),
+  'L': 7 + 12 * (octave + 2),
+  'P': 8 + 12 * (octave + 2),
+  '.': 9 + 12 * (octave + 2),
+  ';': 10 + 12 * (octave + 2),
+  '[': 11 + 12 * (octave + 2),
+  '/': 0 + 12 * (octave + 3),
+  '\'': 1 + 12 * (octave + 3),
+  ']': 2 + 12 * (octave + 3),
+  'SHIFT': 3 + 12 * (octave + 3),
+  'ENTER': 4 + 12 * (octave + 3),
 }
 
 class App extends React.Component {
@@ -71,7 +71,9 @@ class App extends React.Component {
 
     this.midiNotes = [];
     this.state = {
-      selectedInstrument: 192,
+      octave: 2,
+      pitchMappingVar: initialPitchMapping,
+      selectedInstrument: 8,
       status: '?',
       keysPressed: new Set(),
       productRetrieved: false,
@@ -92,6 +94,7 @@ class App extends React.Component {
     });
     this.midiSounds.cacheInstrument(n);
   }
+
   createSelectItems() {
     if (this.midiSounds) {
       if (!(this.items)) {
@@ -180,49 +183,132 @@ class App extends React.Component {
   }
 
   removeKeysPressed = (event) => {
-    const { key } = event;
-    if (this.state.keysPressed.delete(key.toUpperCase())) {
-      this.setState({ keysPressed: new Set(this.state.keysPressed) })
+    if (event.key) {
 
-      const upperCaseKey = key.toUpperCase()
-      if (pitchMappings.hasOwnProperty(upperCaseKey)) {
-        this.keyUp(pitchMappings[upperCaseKey])
+      const pitchMappings = this.state.pitchMappingVar
+
+      const { key } = event;
+      if (this.state.keysPressed.delete(key.toUpperCase())) {
+        this.setState({ keysPressed: new Set(this.state.keysPressed) })
+
+        const upperCaseKey = key.toUpperCase()
+        if (pitchMappings.hasOwnProperty(upperCaseKey)) {
+          this.keyUp(pitchMappings[upperCaseKey])
+        }
       }
     }
   }
 
   addKeysPressed = (event) => {
-    const { key } = event;
-    if (event.repeat || key === "CapsLock" || key === "Tab" || key === " ") {
-      return
-    }
-    const upperCaseKey = key.toUpperCase()
-    if (pitchMappings.hasOwnProperty(upperCaseKey)) {
-      // console.log('Adding pitch sound '+ pitchMappings[upperCaseKey])
-      this.keyDown(pitchMappings[upperCaseKey])
-    }
-    // this.playTestInstrument(key.toUpperCase())
-    this.setState({ keysPressed: new Set(this.state.keysPressed.add(key.toUpperCase())) })
-  }
+    if (event.key) {
 
-  playTestInstrument = (pitch) => {
-    if (pitchMappings.hasOwnProperty(pitch)) {
-      console.log(pitchMappings[pitch])
-      this.midiSounds.playChordNow(this.state.selectedInstrument, [pitchMappings[pitch]], .25);
+      const pitchMappings = this.state.pitchMappingVar
+
+      const { key } = event;
+      if (event.repeat || key === "CapsLock" || key === "Tab" || key === " ") {
+        return
+      }
+
+      const upperCaseKey = key.toUpperCase()
+      if (pitchMappings.hasOwnProperty(upperCaseKey)) {
+        this.keyDown(pitchMappings[upperCaseKey])
+      }
+      this.setState({ keysPressed: new Set(this.state.keysPressed.add(key.toUpperCase())) })
+
+      if (key === "ArrowLeft") {
+        if (this.state.octave === 0) {
+          return
+        }
+        this.setState((prevState, props) => {
+          return { octave: prevState.octave - 1 }
+        }, this.setState({ pitchMappingVar: this.createKeyboardVariable(this.state.octave - 1) }))
+      }
+      else if (key === "ArrowRight") {
+        if (this.state.octave === 6) {
+          return
+        }
+        this.setState((prevState, props) => {
+          return { octave: prevState.octave + 1 }
+        }, this.setState({ pitchMappingVar: this.createKeyboardVariable(this.state.octave + 1) }))
+      }
+
     }
   }
-
-  // componentDidMount = () => {
-  //   document.addEventListener('keydown', this.addKeysPressed, false);
-  //   document.addEventListener('keyup', this.removeKeysPressed, false);
-  // }
 
   componentWillUnmount = () => {
     document.removeEventListener('keydown', this.addKeysPressed, false);
     document.removeEventListener('keyup', this.removeKeysPressed, false);
   }
 
+  createKeyboardVariable = (octave) => {
+
+    const pitchMappings = {
+      'F2': 7 + 12 * octave,
+      'F3': 10 + 12 * octave,
+      'F4': 1 + 12 * (octave + 1),
+      'F5': 4 + 12 * (octave + 1),
+      'F6': 7 + 12 * (octave + 1),
+      'F7': 10 + 12 * (octave + 1),
+      'F8': 1 + 12 * (octave + 2),
+      'F9': 4 + 12 * (octave + 2),
+      'F10': 7 + 12 * (octave + 2),
+      'F11': 10 + 12 * (octave + 2),
+      'F12': 1 + 12 * (octave + 3),
+
+      '3': 9 + 12 * octave,
+      '4': 0 + 12 * (octave + 1),
+      '5': 3 + 12 * (octave + 1),
+      '6': 6 + 12 * (octave + 1),
+      '7': 9 + 12 * (octave + 1),
+      '8': 0 + 12 * (octave + 2),
+      '9': 3 + 12 * (octave + 2),
+      '0': 6 + 12 * (octave + 2),
+      '-': 9 + 12 * (octave + 2),
+      '=': 0 + 12 * (octave + 3),
+
+      'A': 7 + 12 * octave,
+      'W': 8 + 12 * octave,
+      'Z': 9 + 12 * octave,
+      'S': 10 + 12 * octave,
+      'E': 11 + 12 * octave,
+      'X': 0 + 12 * (octave + 1),
+      'D': 1 + 12 * (octave + 1),
+      'R': 2 + 12 * (octave + 1),
+      'C': 3 + 12 * (octave + 1),
+      'F': 4 + 12 * (octave + 1),
+      'T': 5 + 12 * (octave + 1),
+      'V': 6 + 12 * (octave + 1),
+      'G': 7 + 12 * (octave + 1),
+      'Y': 8 + 12 * (octave + 1),
+      'B': 9 + 12 * (octave + 1),
+      'H': 10 + 12 * (octave + 1),
+      'U': 11 + 12 * (octave + 1),
+      'N': 0 + 12 * (octave + 2),
+      'J': 1 + 12 * (octave + 2),
+      'I': 2 + 12 * (octave + 2),
+      'M': 3 + 12 * (octave + 2),
+      'K': 4 + 12 * (octave + 2),
+      'O': 5 + 12 * (octave + 2),
+      ',': 6 + 12 * (octave + 2),
+      'L': 7 + 12 * (octave + 2),
+      'P': 8 + 12 * (octave + 2),
+      '.': 9 + 12 * (octave + 2),
+      ';': 10 + 12 * (octave + 2),
+      '[': 11 + 12 * (octave + 2),
+      '/': 0 + 12 * (octave + 3),
+      '\'': 1 + 12 * (octave + 3),
+      ']': 2 + 12 * (octave + 3),
+      'SHIFT': 3 + 12 * (octave + 3),
+      'ENTER': 4 + 12 * (octave + 3),
+    };
+
+    return pitchMappings;
+
+  }
+
   render() {
+
+    console.log(this.state.octave)
 
     const accordion_buttons = [
       [['g0', 'F2'], ['a#0', 'F3'], ['c#1', 'F4'], ['e1', 'F5'], ['g1', 'F6'], ['a#1', 'F7'], ['c#2', 'F8'], ['e2', 'F9'], ['g2', 'F10'], ['a#2', 'F11'], ['c#3', 'F12']],
@@ -236,31 +322,35 @@ class App extends React.Component {
       <div className="App">
         <header className="App-header">
           <div className="Magnify">
-          <p><select value={this.state.selectedInstrument} onChange={this.onSelectInstrument.bind(this)}>{this.createSelectItems()}</select></p>
-          {
-            accordion_buttons.map((value, index) => {
+            <div>
+              <select id="brow" value={this.state.selectedInstrument} onChange={this.onSelectInstrument.bind(this)}>{this.createSelectItems()}</select>
+              <br />
+              Octave number: {this.state.octave}
+            </div>
+            {
+              accordion_buttons.map((value, index) => {
 
-              return <div className="Accordion-keyboard-rows">
-                <br />
-                {value.map((value, index) => {
+                return <div className="Accordion-keyboard-rows">
+                  <br />
+                  {value.map((value, index) => {
 
-                  const keyType = (value[0].includes('#') ? '-dark' : '')
+                    const keyType = (value[0].includes('#') ? '-dark' : '')
 
-                  return <div className={this.state.keysPressed.has(value[1]) ? 'Accordion-keyboard-keys-pressed' + keyType : 'Accordion-keyboard-keys' + keyType}>
-                    <div className='note'>{value[0]}</div>
-                    <div className='key'>{value[1]}</div>
-                  </div>
-                })}
-              </div>
-            })
-          }
-          <div className="bottom">
-            <MIDISounds 
-              ref={(ref) => (this.midiSounds = ref)} 
-              appElementName="root" 
-              instruments={[this.state.selectedInstrument]} 
+                    return <div className={this.state.keysPressed.has(value[1]) ? 'Accordion-keyboard-keys-pressed' + keyType : 'Accordion-keyboard-keys' + keyType}>
+                      <div className='note'>{value[0]}</div>
+                      <div className='key'>{value[1]}</div>
+                    </div>
+                  })}
+                </div>
+              })
+            }
+            <div className="Midi">
+              <MIDISounds
+                ref={(ref) => (this.midiSounds = ref)}
+                appElementName="root"
+                instruments={[this.state.selectedInstrument]}
               />
-          </div>
+            </div>
           </div>
         </header>
       </div>
