@@ -72,7 +72,7 @@ class App extends React.Component {
     this.midiNotes = [];
     this.state = {
       octave: 2,
-      pitchMappingVar: initialPitchMapping,
+      pitchMappingVar: this.createKeyboardVariable(octave),
       selectedInstrument: 8,
       status: '?',
       keysPressed: new Set(),
@@ -192,8 +192,20 @@ class App extends React.Component {
         this.setState({ keysPressed: new Set(this.state.keysPressed) })
 
         const upperCaseKey = key.toUpperCase()
-        if (pitchMappings.hasOwnProperty(upperCaseKey)) {
-          this.keyUp(pitchMappings[upperCaseKey])
+        if (initialPitchMapping.hasOwnProperty(upperCaseKey)) {
+
+          let pitch
+
+          pitchMappings.forEach((noteRowArrays) => {
+            noteRowArrays.forEach((noteArrays) => {
+              if (noteArrays[0] === upperCaseKey) {
+                pitch = noteArrays[1]
+              }
+            })
+          })
+
+          this.keyUp(pitch)
+          // this.keyUp(initialPitchMapping[upperCaseKey])
         }
       }
     }
@@ -210,8 +222,19 @@ class App extends React.Component {
       }
 
       const upperCaseKey = key.toUpperCase()
-      if (pitchMappings.hasOwnProperty(upperCaseKey)) {
-        this.keyDown(pitchMappings[upperCaseKey])
+      if (initialPitchMapping.hasOwnProperty(upperCaseKey)) {
+
+        let pitch
+
+        pitchMappings.forEach((noteRowArrays) => {
+          noteRowArrays.forEach((noteArrays) => {
+            if (noteArrays[0] === upperCaseKey) {
+              pitch = noteArrays[1]
+            }
+          })
+        })
+
+        this.keyDown(pitch)
       }
       this.setState({ keysPressed: new Set(this.state.keysPressed.add(key.toUpperCase())) })
 
@@ -242,65 +265,74 @@ class App extends React.Component {
 
   createKeyboardVariable = (octave) => {
 
-    const pitchMappings = {
-      'F2': 7 + 12 * octave,
-      'F3': 10 + 12 * octave,
-      'F4': 1 + 12 * (octave + 1),
-      'F5': 4 + 12 * (octave + 1),
-      'F6': 7 + 12 * (octave + 1),
-      'F7': 10 + 12 * (octave + 1),
-      'F8': 1 + 12 * (octave + 2),
-      'F9': 4 + 12 * (octave + 2),
-      'F10': 7 + 12 * (octave + 2),
-      'F11': 10 + 12 * (octave + 2),
-      'F12': 1 + 12 * (octave + 3),
+    const pitchMappings = [
+      [
+        ['F2', 7 + 12 * octave, "g" + octave],
+        ['F3', 10 + 12 * octave, "a#" + octave],
+        ['F4', 1 + 12 * (octave + 1), "c#" + (octave + 1)],
+        ['F5', 4 + 12 * (octave + 1), "e" + (octave + 1)],
+        ['F6', 7 + 12 * (octave + 1), "g" + (octave + 1)],
+        ['F7', 10 + 12 * (octave + 1), "a#" + (octave + 1)],
+        ['F8', 1 + 12 * (octave + 2), "c#" + (octave + 2)],
+        ['F9', 4 + 12 * (octave + 2), "e" + (octave + 2)],
+        ['F10', 7 + 12 * (octave + 2), "g" + (octave + 2)],
+        ['F11', 10 + 12 * (octave + 2), "a#" + (octave + 2)],
+        ['F12', 1 + 12 * (octave + 3), "c#" + (octave + 3)],
+      ],
+      [
+        ['3', 9 + 12 * octave, "a" + octave],
+        ['4', 0 + 12 * (octave + 1), "c" + (octave + 1)],
+        ['5', 3 + 12 * (octave + 1), "d#" + (octave + 1)],
+        ['6', 6 + 12 * (octave + 1), "f#" + (octave + 1)],
+        ['7', 9 + 12 * (octave + 1), "a" + (octave + 1)],
+        ['8', 0 + 12 * (octave + 2), "c" + (octave + 2)],
+        ['9', 3 + 12 * (octave + 2), "d#" + (octave + 2)],
+        ['0', 6 + 12 * (octave + 2), "f#" + (octave + 2)],
+        ['-', 9 + 12 * (octave + 2), "a" + (octave + 2)],
+        ['=', 0 + 12 * (octave + 3), "c" + (octave + 3)],
+      ],
+      [
+        ['W', 8 + 12 * octave, "g#" + octave],
+        ['E', 11 + 12 * octave, "b" + octave],
+        ['R', 2 + 12 * (octave + 1), "d" + (octave + 1)],
+        ['T', 5 + 12 * (octave + 1), "f" + (octave + 1)],
+        ['Y', 8 + 12 * (octave + 1), "g#" + (octave + 1)],
+        ['U', 11 + 12 * (octave + 1), "b" + (octave + 1)],
+        ['I', 2 + 12 * (octave + 2), "d" + (octave + 2)],
+        ['O', 5 + 12 * (octave + 2), "f" + (octave + 2)],
+        ['P', 8 + 12 * (octave + 2), "g#" + (octave + 2)],
+        ['[', 11 + 12 * (octave + 2), "b" + (octave + 2)],
+        [']', 2 + 12 * (octave + 3), "d" + (octave + 3)],
+      ],
+      [
+        ['A', 7 + 12 * octave, "g" + octave],
+        ['S', 10 + 12 * octave, "a#" + octave],
+        ['D', 1 + 12 * (octave + 1), "c#" + (octave + 1)],
+        ['F', 4 + 12 * (octave + 1), "e" + (octave + 1)],
+        ['G', 7 + 12 * (octave + 1), "g" + (octave + 1)],
+        ['H', 10 + 12 * (octave + 1), "a#" + (octave + 1)],
+        ['J', 1 + 12 * (octave + 2), "c#" + (octave + 2)],
+        ['K', 4 + 12 * (octave + 2), "e" + (octave + 2)],
+        ['L', 7 + 12 * (octave + 2), "g" + (octave + 2)],
+        [';', 10 + 12 * (octave + 2), "a#" + (octave + 2)],
+        ['\'', 1 + 12 * (octave + 3), "c#" + (octave + 3)],
+        ['ENTER', 4 + 12 * (octave + 3), "e" + (octave + 3)],
+      ],
+      [
+        ['Z', 9 + 12 * octave, "a" + octave],
+        ['X', 0 + 12 * (octave + 1), "c" + (octave + 1)],
+        ['C', 3 + 12 * (octave + 1), "d#" + (octave + 1)],
+        ['V', 6 + 12 * (octave + 1), "f#" + (octave + 1)],
+        ['B', 9 + 12 * (octave + 1), "a" + (octave + 1)],
+        ['N', 0 + 12 * (octave + 2), "c" + (octave + 2)],
+        ['M', 3 + 12 * (octave + 2), "d#" + (octave + 2)],
+        [',', 6 + 12 * (octave + 2), "f#" + (octave + 2)],
+        ['.', 9 + 12 * (octave + 2), "a" + (octave + 2)],
+        ['/', 0 + 12 * (octave + 3), "c" + (octave + 3)],
+        ['SHIFT', 3 + 12 * (octave + 3), "d#" + (octave + 3)],
+      ]
 
-      '3': 9 + 12 * octave,
-      '4': 0 + 12 * (octave + 1),
-      '5': 3 + 12 * (octave + 1),
-      '6': 6 + 12 * (octave + 1),
-      '7': 9 + 12 * (octave + 1),
-      '8': 0 + 12 * (octave + 2),
-      '9': 3 + 12 * (octave + 2),
-      '0': 6 + 12 * (octave + 2),
-      '-': 9 + 12 * (octave + 2),
-      '=': 0 + 12 * (octave + 3),
-
-      'A': 7 + 12 * octave,
-      'W': 8 + 12 * octave,
-      'Z': 9 + 12 * octave,
-      'S': 10 + 12 * octave,
-      'E': 11 + 12 * octave,
-      'X': 0 + 12 * (octave + 1),
-      'D': 1 + 12 * (octave + 1),
-      'R': 2 + 12 * (octave + 1),
-      'C': 3 + 12 * (octave + 1),
-      'F': 4 + 12 * (octave + 1),
-      'T': 5 + 12 * (octave + 1),
-      'V': 6 + 12 * (octave + 1),
-      'G': 7 + 12 * (octave + 1),
-      'Y': 8 + 12 * (octave + 1),
-      'B': 9 + 12 * (octave + 1),
-      'H': 10 + 12 * (octave + 1),
-      'U': 11 + 12 * (octave + 1),
-      'N': 0 + 12 * (octave + 2),
-      'J': 1 + 12 * (octave + 2),
-      'I': 2 + 12 * (octave + 2),
-      'M': 3 + 12 * (octave + 2),
-      'K': 4 + 12 * (octave + 2),
-      'O': 5 + 12 * (octave + 2),
-      ',': 6 + 12 * (octave + 2),
-      'L': 7 + 12 * (octave + 2),
-      'P': 8 + 12 * (octave + 2),
-      '.': 9 + 12 * (octave + 2),
-      ';': 10 + 12 * (octave + 2),
-      '[': 11 + 12 * (octave + 2),
-      '/': 0 + 12 * (octave + 3),
-      '\'': 1 + 12 * (octave + 3),
-      ']': 2 + 12 * (octave + 3),
-      'SHIFT': 3 + 12 * (octave + 3),
-      'ENTER': 4 + 12 * (octave + 3),
-    };
+    ]
 
     return pitchMappings;
 
@@ -308,7 +340,7 @@ class App extends React.Component {
 
   render() {
 
-    console.log(this.state.octave)
+    const renderedKeyMappings = this.state.pitchMappingVar;
 
     const accordion_buttons = [
       [['g0', 'F2'], ['a#0', 'F3'], ['c#1', 'F4'], ['e1', 'F5'], ['g1', 'F6'], ['a#1', 'F7'], ['c#2', 'F8'], ['e2', 'F9'], ['g2', 'F10'], ['a#2', 'F11'], ['c#3', 'F12']],
@@ -328,18 +360,19 @@ class App extends React.Component {
               Use Left and Right Arrow Keys to change octave number: {this.state.octave}
             </div>
             {
-              accordion_buttons.map((value, index) => {
+              renderedKeyMappings.map((value, index) => {
 
                 return <div className="Accordion-keyboard-rows">
                   <br />
                   {value.map((value, index) => {
 
-                    const keyType = (value[0].includes('#') ? '-dark' : '')
+                    const keyType = (value[2].includes('#') ? '-dark' : '')
 
-                    return <div className={this.state.keysPressed.has(value[1]) ? 'Accordion-keyboard-keys-pressed' + keyType : 'Accordion-keyboard-keys' + keyType}>
-                      <div className='note'>{value[0]}</div>
-                      <div className='key'>{value[1]}</div>
+                    return <div className={this.state.keysPressed.has(value[0]) ? 'Accordion-keyboard-keys-pressed' + keyType : 'Accordion-keyboard-keys' + keyType}>
+                      <div className='note'>{value[2]}</div>
+                      <div className='key'>{value[0]}</div>
                     </div>
+
                   })}
                 </div>
               })
