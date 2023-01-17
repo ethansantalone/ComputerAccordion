@@ -2,67 +2,66 @@ import React from 'react';
 import './Accordion.css';
 import './App.css';
 import MIDISounds from 'midi-sounds-react';
+import SelectSearch from 'react-select-search';
+import './ReactSelect.css'
 
-let octave = 2;
-const initialPitchMapping = {
-  'F2': 7 + 12 * octave,
-  'F3': 10 + 12 * octave,
-  'F4': 1 + 12 * (octave + 1),
-  'F5': 4 + 12 * (octave + 1),
-  'F6': 7 + 12 * (octave + 1),
-  'F7': 10 + 12 * (octave + 1),
-  'F8': 1 + 12 * (octave + 2),
-  'F9': 4 + 12 * (octave + 2),
-  'F10': 7 + 12 * (octave + 2),
-  'F11': 10 + 12 * (octave + 2),
-  'F12': 1 + 12 * (octave + 3),
-
-  '3': 9 + 12 * octave,
-  '4': 0 + 12 * (octave + 1),
-  '5': 3 + 12 * (octave + 1),
-  '6': 6 + 12 * (octave + 1),
-  '7': 9 + 12 * (octave + 1),
-  '8': 0 + 12 * (octave + 2),
-  '9': 3 + 12 * (octave + 2),
-  '0': 6 + 12 * (octave + 2),
-  '-': 9 + 12 * (octave + 2),
-  '=': 0 + 12 * (octave + 3),
-
-  'A': 7 + 12 * octave,
-  'W': 8 + 12 * octave,
-  'Z': 9 + 12 * octave,
-  'S': 10 + 12 * octave,
-  'E': 11 + 12 * octave,
-  'X': 0 + 12 * (octave + 1),
-  'D': 1 + 12 * (octave + 1),
-  'R': 2 + 12 * (octave + 1),
-  'C': 3 + 12 * (octave + 1),
-  'F': 4 + 12 * (octave + 1),
-  'T': 5 + 12 * (octave + 1),
-  'V': 6 + 12 * (octave + 1),
-  'G': 7 + 12 * (octave + 1),
-  'Y': 8 + 12 * (octave + 1),
-  'B': 9 + 12 * (octave + 1),
-  'H': 10 + 12 * (octave + 1),
-  'U': 11 + 12 * (octave + 1),
-  'N': 0 + 12 * (octave + 2),
-  'J': 1 + 12 * (octave + 2),
-  'I': 2 + 12 * (octave + 2),
-  'M': 3 + 12 * (octave + 2),
-  'K': 4 + 12 * (octave + 2),
-  'O': 5 + 12 * (octave + 2),
-  ',': 6 + 12 * (octave + 2),
-  'L': 7 + 12 * (octave + 2),
-  'P': 8 + 12 * (octave + 2),
-  '.': 9 + 12 * (octave + 2),
-  ';': 10 + 12 * (octave + 2),
-  '[': 11 + 12 * (octave + 2),
-  '/': 0 + 12 * (octave + 3),
-  '\'': 1 + 12 * (octave + 3),
-  ']': 2 + 12 * (octave + 3),
-  'SHIFT': 3 + 12 * (octave + 3),
-  'ENTER': 4 + 12 * (octave + 3),
-}
+const keys = new Set([
+  'F2',
+  'F3',
+  'F4',
+  'F5',
+  'F6',
+  'F7',
+  'F8',
+  'F9',
+  'F10',
+  'F11',
+  'F12',
+  '3',
+  '4',
+  '5',
+  '6',
+  '7',
+  '8',
+  '9',
+  '0',
+  '-',
+  '=',
+  'A',
+  'W',
+  'Z',
+  'S',
+  'E',
+  'X',
+  'D',
+  'R',
+  'C',
+  'F',
+  'T',
+  'V',
+  'G',
+  'Y',
+  'B',
+  'H',
+  'U',
+  'N',
+  'J',
+  'I',
+  'M',
+  'K',
+  'O',
+  ',',
+  'L',
+  'P',
+  '.',
+  ';',
+  '[',
+  '/',
+  '\'',
+  ']',
+  'SHIFT',
+  'ENTER',
+])
 
 class App extends React.Component {
 
@@ -72,11 +71,12 @@ class App extends React.Component {
     this.midiNotes = [];
     this.state = {
       octave: 2,
-      pitchMappingVar: this.createKeyboardVariable(octave),
+      pitchMappingVar: this.createKeyboardVariable(2),
       selectedInstrument: 8,
       status: '?',
       keysPressed: new Set(),
       productRetrieved: false,
+      size: 's'
     };
   }
 
@@ -86,13 +86,12 @@ class App extends React.Component {
     document.addEventListener('keydown', this.addKeysPressed, false);
     document.addEventListener('keyup', this.removeKeysPressed, false);
   }
+  
   onSelectInstrument(e) {
-    var list = e.target;
-    let n = list.options[list.selectedIndex].getAttribute("value");
     this.setState({
-      selectedInstrument: n
+      selectedInstrument: e
     });
-    this.midiSounds.cacheInstrument(n);
+    this.midiSounds.cacheInstrument(e);
   }
 
   createSelectItems() {
@@ -100,7 +99,8 @@ class App extends React.Component {
       if (!(this.items)) {
         this.items = [];
         for (let i = 0; i < this.midiSounds.player.loader.instrumentKeys().length; i++) {
-          this.items.push(<option key={i} value={i}>{'' + (i + 0) + '. ' + this.midiSounds.player.loader.instrumentInfo(i).title}</option>);
+          // this.items.push(<option key={i} value={i}>{'' + (i + 0) + '. ' + this.midiSounds.player.loader.instrumentInfo(i).title}</option>);
+          this.items.push({ name: '' + (i + 0) + '. ' + this.midiSounds.player.loader.instrumentInfo(i).title, value:i  });
         }
       }
       return this.items;
@@ -192,7 +192,7 @@ class App extends React.Component {
         this.setState({ keysPressed: new Set(this.state.keysPressed) })
 
         const upperCaseKey = key.toUpperCase()
-        if (initialPitchMapping.hasOwnProperty(upperCaseKey)) {
+        if (keys.has(upperCaseKey)) {
 
           let pitch
 
@@ -222,7 +222,7 @@ class App extends React.Component {
       }
 
       const upperCaseKey = key.toUpperCase()
-      if (initialPitchMapping.hasOwnProperty(upperCaseKey)) {
+      if (keys.has(upperCaseKey)) {
         let pitch
         pitchMappings.forEach((noteRowArrays) => {
           noteRowArrays.forEach((noteArrays) => {
@@ -346,6 +346,11 @@ class App extends React.Component {
     return pitchMappings;
 
   }
+  onSelectChanged(value) {
+    this.setState({
+      size: value
+    });
+  }
 
   render() {
 
@@ -355,9 +360,13 @@ class App extends React.Component {
       <div className="App">
         <header className="App-header">
           <div className="Magnify">
+          <SelectSearch
+                value={this.state.selectedInstrument}
+                onChange={this.onSelectInstrument.bind(this)}
+                options={this.createSelectItems()}
+                search={true}
+            />
             <div>
-              <select id="brow" value={this.state.selectedInstrument} onChange={this.onSelectInstrument.bind(this)}>{this.createSelectItems()}</select>
-              <br />
               <br />
               Left Arrow Key: Decrement Octave | Up Arrow Key: 6nd Octave
               <br />
