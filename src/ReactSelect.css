@@ -4,7 +4,7 @@
  * Main wrapper
  */
 .select-search-container {
-    --select-search-background: #fff;
+    --select-search-background: background-color: rgba(30, 30, 30);
     --select-search-border: #dce0e8;
     --select-search-selected: #1e66f5;
     --select-search-text: #000;
@@ -28,8 +28,8 @@
 
 @media (prefers-color-scheme: dark) {
     .select-search-container {
-        --select-search-background: #000;
-        --select-search-border: #313244;
+        --select-search-background: rgba(30, 30, 30);
+        --select-search-border: rgba(50, 50, 50);
         --select-search-selected: #89b4fa;
         --select-search-text: #fff;
         --select-search-subtle-text: #a6adc8;
@@ -71,7 +71,7 @@ body.is-light-mode .select-search-container {
     background: var(--select-search-background);
     border: 2px solid var(--select-search-border);
     color: var(--select-search-text);
-    border-radius: 3px;
+    border-radius: 5px;
     outline: none;
     font-family: var(--select-search-font);
     font-size: 16px;
@@ -116,8 +116,7 @@ body.is-light-mode .select-search-container {
     box-shadow: 0 .0625rem .125rem rgba(0, 0, 0, 0.15);
     border: 2px solid var(--select-search-border);
     overflow: auto;
-    max-height: 360px;
-    display: flex;
+    max-height: 590px;
 }
 
 .select-search-container:not(.select-search-is-multiple) .select-search-select {
@@ -126,7 +125,7 @@ body.is-light-mode .select-search-container {
     top: 58px;
     right: 0;
     left: 0;
-    border-radius: 3px;
+    border-radius: 5px;
     display: none;
 }
 
@@ -141,7 +140,6 @@ body.is-light-mode .select-search-container {
 .select-search-options {
     list-style: none;
     padding: 0;
-    margin: 0;
 }
 
 .select-search-option,

@@ -22,53 +22,67 @@
     color: white;
   }
 
+  .Accordion-keyboard {
+    width: 940px;
+    background-color: rgb(37, 37, 37);
+    /* border: 2px solid rgba(50, 50, 50); */
+    padding: 10px;
+    border-radius: 15px;
+    height: 390px;
+  }
+
 
   .Accordion-keyboard-keys {
-    width: 60px;
-    height: 60px;
+    width: 70px;
+    height: 70px;
     margin: 4px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: #e9d8a6;
-    color: #005f73;
+    /* background-color: #e9d8a6; */
+    background-color: white;
+    color: black;
+    /* color: #005f73; */
     border-radius: 3px;
   }
   .Accordion-keyboard-keys-pressed {
-    width: 60px;
-    height: 60px;
+    width: 70px;
+    height: 70px;
     margin: 4px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: #c8b374;
-    color: #005f73;
+    background-color: #a3d1f9;
+    color: #000000;
     border-radius: 3px;
   }
   .Accordion-keyboard-keys-dark {
-    width: 60px;
-    height: 60px;
+    width: 70px;
+    height: 70px;
     margin: 4px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: #005f73;
-    color: #e9d8a6;
+    /* background-color: #005f73;
+    color: #e9d8a6; */
     border-radius: 3px;
+
+    background-color: black;
+    color: white;
   }
   .Accordion-keyboard-keys-pressed-dark {
-    width: 60px;
-    height: 60px;
+    width: 70px;
+    height: 70px;
     margin: 4px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: #0a9396;
-    color: #e9d8a6;
+    background-color: #173165;
+    color: #ffffff;
     border-radius: 3px;
   }
 

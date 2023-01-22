@@ -3,7 +3,10 @@ import './Accordion.css';
 import './App.css';
 import MIDISounds from 'midi-sounds-react';
 import SelectSearch from 'react-select-search';
-import './ReactSelect.css'
+import './ReactSelect.css';
+// import background_img from './green-leafed-plant-2560x1600.jpg';
+import background_img from './Grayscale-tree.webp';
+
 
 const keys = new Set([
   'F2',
@@ -86,7 +89,7 @@ class App extends React.Component {
     document.addEventListener('keydown', this.addKeysPressed, false);
     document.addEventListener('keyup', this.removeKeysPressed, false);
   }
-  
+
   onSelectInstrument(e) {
     this.setState({
       selectedInstrument: e
@@ -100,7 +103,7 @@ class App extends React.Component {
         this.items = [];
         for (let i = 0; i < this.midiSounds.player.loader.instrumentKeys().length; i++) {
           // this.items.push(<option key={i} value={i}>{'' + (i + 0) + '. ' + this.midiSounds.player.loader.instrumentInfo(i).title}</option>);
-          this.items.push({ name: '' + (i + 0) + '. ' + this.midiSounds.player.loader.instrumentInfo(i).title, value:i  });
+          this.items.push({ name: '' + (i + 0) + '. ' + this.midiSounds.player.loader.instrumentInfo(i).title, value: i });
         }
       }
       return this.items;
@@ -257,7 +260,7 @@ class App extends React.Component {
           return
         }
         this.setState({ octave: 6 }, this.setState({ pitchMappingVar: this.createKeyboardVariable(6) }))
-      }else if (key === "ArrowDown") {
+      } else if (key === "ArrowDown") {
         if (this.state.octave === 2) {
           return
         }
@@ -359,45 +362,72 @@ class App extends React.Component {
     return (
       <div className="App">
         <header className="App-header">
-          <div className="Magnify">
-          <SelectSearch
+
+          <div className="App-top">
+            Keyboardion
+            <div className="Signature" onClick={() => window.open("http://www.ethansantalone.com")}>
+              By Ethan Santalone
+            </div>
+          </div>
+          <div className='App-main'>
+            <div className='App-left'>
+
+                 <img src={background_img} className="App-header-img" alt="background_img" />
+
+                <div className='Accordion-keyboard'>
+                  {
+
+                    renderedKeyMappings.map((value, index) => {
+
+                      return <div className="Accordion-keyboard-rows">
+                        <br />
+                        {value.map((value, index) => {
+
+                          const keyType = (value[2].includes('#') ? '-dark' : '')
+
+                          return <div className={this.state.keysPressed.has(value[0]) ? 'Accordion-keyboard-keys-pressed' + keyType : 'Accordion-keyboard-keys' + keyType}>
+                            <div className='note'>{value[2]}</div>
+                            <div className='key'>{value[0]}</div>
+                          </div>
+
+                        })}
+                      </div>
+                    })
+                  }
+                </div>
+            </div>
+            <div className="App-right">
+              <SelectSearch
                 value={this.state.selectedInstrument}
                 onChange={this.onSelectInstrument.bind(this)}
                 options={this.createSelectItems()}
                 search={true}
-            />
-            <div>
-              <br />
-              Left Arrow Key: Decrement Octave | Up Arrow Key: 6nd Octave
-              <br />
-              Right Arrow Key: Increment Octave | Down Arrow Key: 2nd Octave
-              <br />
-            </div>
-            <br />
-            {
-              renderedKeyMappings.map((value, index) => {
-
-                return <div className="Accordion-keyboard-rows">
-                  <br />
-                  {value.map((value, index) => {
-
-                    const keyType = (value[2].includes('#') ? '-dark' : '')
-
-                    return <div className={this.state.keysPressed.has(value[0]) ? 'Accordion-keyboard-keys-pressed' + keyType : 'Accordion-keyboard-keys' + keyType}>
-                      <div className='note'>{value[2]}</div>
-                      <div className='key'>{value[0]}</div>
-                    </div>
-
-                  })}
-                </div>
-              })
-            }
-            <div className="Midi">
-              <MIDISounds
-                ref={(ref) => (this.midiSounds = ref)}
-                appElementName="root"
-                instruments={[this.state.selectedInstrument]}
               />
+              <br />
+              Left Arrow Key: 
+              <br />
+              Decrement Octave  
+              <br /><br />
+              Up Arrow Key: 
+              <br />
+              6nd Octave
+              <br /><br />
+              Right Arrow Key: 
+              <br />
+              Increment Octave 
+              <br /><br />
+              Down Arrow Key: 
+              <br />
+              2nd Octave
+              <br />
+              <br />
+              <div className="Midi">
+                <MIDISounds
+                  ref={(ref) => (this.midiSounds = ref)}
+                  appElementName="root"
+                  instruments={[this.state.selectedInstrument]}
+                />
+              </div>
             </div>
           </div>
         </header>
