@@ -103,6 +103,12 @@
   filter: grayscale(1);
 }
 
+.Note {
+  font-size: 14pt;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
 .Description {
   margin-left: 6px;
   font-size: medium;

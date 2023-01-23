@@ -404,6 +404,9 @@ class App extends React.Component {
                 search={true}
               />
               <br />
+              Features:
+              <br />
+              <br />
               Left Arrow Key: 
               <br />
               Decrement Octave  
@@ -421,6 +424,7 @@ class App extends React.Component {
               2nd Octave
               <br />
               <br />
+              <div className="Note">Changing octaves while holding notes will sustain them.</div>
               <div className="Midi">
                 <MIDISounds
                   ref={(ref) => (this.midiSounds = ref)}
