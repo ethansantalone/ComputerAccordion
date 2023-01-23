@@ -63,7 +63,6 @@ body.is-light-mode .select-search-container {
 
 .select-search-input {
     position: relative;
-    z-index: 1;
     display: block;
     height: 48px;
     width: 100%;
