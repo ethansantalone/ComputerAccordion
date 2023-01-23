@@ -4,7 +4,7 @@
  * Main wrapper
  */
 .select-search-container {
-    --select-search-background: background-color: rgba(30, 30, 30);
+    --select-search-background: rgba(30, 30, 30);
     --select-search-border: #dce0e8;
     --select-search-selected: #1e66f5;
     --select-search-text: #000;
